@@ -1,9 +1,7 @@
-var {callEvent, ipcRendererSetup} = require('electron-tunnel');
+var {callEvent} = require('../../dist/index.js');
 var $setFullScreenBtn = document.querySelector('.set-full-screen');
 var $quitFullScreenBtn = document.querySelector('.quit-full-screen');
 var $print = document.querySelector('.print');
-
-ipcRendererSetup();
 
 $setFullScreenBtn.addEventListener('click', function() {
   callEvent('SET_FULL_SCREEN');

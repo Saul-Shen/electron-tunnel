@@ -3,9 +3,7 @@ const { app, BrowserWindow } = electron;
 const events = require('./events/index.js');
 const path = require('path');
 
-const {registEvents, ipcMainSetup} = require('electron-tunnel');
-
-ipcMainSetup();
+const {registEvents} = require('../../dist/index.js');
 
 app.on('ready', () => {
   const win = new BrowserWindow();

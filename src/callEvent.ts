@@ -17,8 +17,15 @@ interface EventsStack {
 
 const eventsStack: EventsStack = {};
 let id: number = 0;
+let ifIpcRenderSetUp: boolean = false;
 
 export function ipcRendererSetup() {
+  if (ifIpcRenderSetUp) {
+    return;
+  } else {
+    ifIpcRenderSetUp = true;
+  }
+
   ipcRenderer.on(CALLBACK_CHANNEL, (e: Electron.Event , arg: Arg) => {
     const event = eventsStack[arg.id];
     if (event) {
@@ -30,6 +37,10 @@ export function ipcRendererSetup() {
       delete eventsStack[arg.id];
     }
   });
+}
+
+if (typeof window !== 'undefined') {
+  ipcRendererSetup();
 }
 
 // 调用原生事件

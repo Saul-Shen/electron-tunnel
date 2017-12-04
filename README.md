@@ -34,8 +34,8 @@ const electron = require('electron');
 const { app, BrowserWindow } = electron;
 const events = require('./events/index.js');
 
-const {registEvents, ipcMainSetup} = require('electron-tunnel');
-ipcMainSetup();
+const {registEvents} = require('electron-tunnel');
+
 app.on('ready', () => {
   const win = new BrowserWindow();
 
@@ -57,8 +57,7 @@ app.on('ready', () => {
 * call event in render progress
 
 ```javascript
-const {callEvent, ipcRendererSetup} = require('electron-tunnel');
-ipcRendererSetup();
+const {callEvent} = require('electron-tunnel');
 var $setFullScreenBtn = document.querySelector('.set-full-screen');
 var $print = document.querySelector('.print');
 

@@ -20,11 +20,18 @@ interface EventList {
   [index: string]: (params: object, ...cusParams: Array<object>) => Promise<object>;
 }
 
-let eventsList: EventList,
-    cusParams: Array<object>;
+let eventsList: EventList;
+let cusParams: Array<object>;
+let ifIpcMainSetUp: boolean = false;
 
 // 监听对原生的调用
 export function ipcMainSetup() {
+  if (ifIpcMainSetUp) {
+    return;
+  } else {
+    ifIpcMainSetUp = true;
+  }
+
   ipcMain.on(FIRE_CHANNEL, (event: Electron.Event, arg: Arg) => {
     const {id, eventName, params} = arg;
     const nativeEvent = eventsList[eventName];
@@ -60,6 +67,10 @@ export function ipcMainSetup() {
       });
     }
   });
+}
+
+if (typeof window === 'undefined') {
+  ipcMainSetup();
 }
 
 export function registEvents(events: EventList, params: Array<object>) {

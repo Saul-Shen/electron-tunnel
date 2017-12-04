@@ -12,6 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "electron": "^1.7.6",
-    "electron-tunnel": "^1.1.0"
+    "electron-tunnel": "^1.1.2"
   }
 }
