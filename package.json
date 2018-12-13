@@ -1,11 +1,11 @@
 {
   "name": "electron-tunnel",
-  "version": "1.2.0",
-  "main": "./dist/index.js",
-  "description": "# Motivition",
+  "version": "1.2.1",
+  "main": "./lib/index.js",
+  "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "rm -rf es lib dist && node ./build.js",
+    "release": "npm run build && standard-version && npm publish --registry=https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
@@ -30,11 +30,14 @@
     "url": "https://github.com/Hokkaidosunny/electron-tunnel/issues"
   },
   "homepage": "https://github.com/Hokkaidosunny/electron-tunnel#readme",
-  "devDependencies": {
-    "tslint": "^5.9.1",
-    "typescript": "^2.6.1"
-  },
   "dependencies": {
-    "electron": "^1.7.11"
+    "electron": "^3.0.11",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "build-my-package": "^0.0.13",
+    "standard-version": "^4.4.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.2.2"
   }
 }
