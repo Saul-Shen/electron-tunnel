@@ -1,8 +1,8 @@
 ## electron-tunnel
 
-You don't need to distinguish main process & renderer processes any more.<br>
+You don't need to distinguish main process & renderer process any more.<br>
 
-After regist event in main progress , you can call registed event in render progress.
+After regist event in main process, you can call registed event in render process.
 
 ### Usage
 
@@ -32,7 +32,7 @@ module.exports = {
 }
 ```
 
-- regist events in main progress
+- regist events in main process
 
 ```javascript
 const { app, BrowserWindow } = require('electron')
@@ -57,7 +57,7 @@ app.on('ready', () => {
 })
 ```
 
-- call event in render progress
+- call event in renderer process
 
 ```javascript
 const { callEvent } = require('electron-tunnel')
