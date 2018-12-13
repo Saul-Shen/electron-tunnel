@@ -17,7 +17,10 @@ interface Arg {
 }
 
 interface EventList {
-  [index: string]: (params: object, ...cusParams: Array<object>) => Promise<object>;
+  [index: string]: (
+    params: object,
+    ...cusParams: Array<object>
+  ) => Promise<object>;
 }
 
 let eventsList: EventList;
@@ -33,7 +36,7 @@ export function ipcMainSetup() {
   }
 
   ipcMain.on(FIRE_CHANNEL, (event: Electron.Event, arg: Arg) => {
-    const {id, eventName, params} = arg;
+    const { id, eventName, params } = arg;
     const nativeEvent = eventsList[eventName];
 
     // 主进程不支持的事件
@@ -47,19 +50,22 @@ export function ipcMainSetup() {
     }
 
     // 主进程支持的事件
-    const result =  nativeEvent(params, ...cusParams);
-    if (isPromise(result)) { // 如果返回promise
-      result.then(res => {
-        event.sender.send(CALLBACK_CHANNEL, {
-          id,
-          payload: res
+    const result = nativeEvent(params, ...cusParams);
+    if (isPromise(result)) {
+      // 如果返回promise
+      result
+        .then(res => {
+          event.sender.send(CALLBACK_CHANNEL, {
+            id,
+            payload: res
+          });
+        })
+        .catch(err => {
+          event.sender.send(CALLBACK_CHANNEL, {
+            id,
+            err: err.message
+          });
         });
-      }).catch(err => {
-        event.sender.send(CALLBACK_CHANNEL, {
-          id,
-          err: err.message
-        });
-      });
     } else {
       event.sender.send(CALLBACK_CHANNEL, {
         id,

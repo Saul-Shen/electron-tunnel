@@ -4,14 +4,12 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron src/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron src/main.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^1.7.6",
-    "electron-tunnel": "^1.1.2"
+    "electron": "^3.0.11"
   }
 }

@@ -1,6 +1,6 @@
 import * as Electron from 'electron';
 import { FIRE_CHANNEL, CALLBACK_CHANNEL } from './const';
-const {ipcRenderer} = Electron;
+const { ipcRenderer } = Electron;
 
 interface Arg {
   id: string;
@@ -10,7 +10,7 @@ interface Arg {
 
 interface EventsStack {
   [index: string]: {
-    resolve: (payload: object) => void,
+    resolve: (payload: object) => void;
     reject: (error: Error) => void;
   };
 }
@@ -26,7 +26,7 @@ export function ipcRendererSetup() {
     ifIpcRenderSetUp = true;
   }
 
-  ipcRenderer.on(CALLBACK_CHANNEL, (e: Electron.Event , arg: Arg) => {
+  ipcRenderer.on(CALLBACK_CHANNEL, (e: Electron.Event, arg: Arg) => {
     const event = eventsStack[arg.id];
     if (event) {
       if (arg.err) {
@@ -48,11 +48,7 @@ export function callEvent(eventName: string, params: object = {}) {
   id++;
 
   return new Promise((resolve, reject) => {
-    const event = Object.assign(
-      { id: String(id) },
-      { eventName },
-      { params }
-    );
+    const event = Object.assign({ id: String(id) }, { eventName }, { params });
 
     eventsStack[id] = { resolve, reject }; // 注册唯一函数
 

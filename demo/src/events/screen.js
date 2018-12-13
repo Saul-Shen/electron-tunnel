@@ -4,25 +4,25 @@
 
 //进入全屏
 function setFullScreen(params, app, win) {
-  return win.setFullScreen(true);
+  return win.setFullScreen(true)
 }
 
 //退出全屏
 function quitFullScreen(params, app, win) {
-  return win.setFullScreen(false);
+  return win.setFullScreen(false)
 }
 
 function asyncEvent(params) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
-      console.log(params.word);
-      resolve();
-    }, 3000);
-  });
+      console.log(params.word)
+      resolve()
+    }, 3000)
+  })
 }
 
 module.exports = {
   setFullScreen,
   quitFullScreen,
   asyncEvent
-};
+}
