@@ -35,9 +35,10 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "build-my-package": "^0.0.13",
+    "build-my-package": "^0.0.17",
     "standard-version": "^4.4.0",
     "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.2.2"
   }
 }

@@ -1,9 +1,4 @@
-import { ipcRendererSetup, callEvent } from './callEvent';
-import { ipcMainSetup, registEvents } from './registEvents';
+import callNativeEvent from './callNativeEvent'
+import registNativeEvent from './registNativeEvent'
 
-module.exports = {
-  ipcRendererSetup,
-  ipcMainSetup,
-  callEvent,
-  registEvents
-};
+export { callNativeEvent, registNativeEvent }

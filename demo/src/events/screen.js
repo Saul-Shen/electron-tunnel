@@ -15,8 +15,7 @@ function quitFullScreen(params, app, win) {
 function asyncEvent(params) {
   return new Promise(resolve => {
     setTimeout(() => {
-      console.log(params.word)
-      resolve()
+      resolve(`received ${params.word}`)
     }, 3000)
   })
 }

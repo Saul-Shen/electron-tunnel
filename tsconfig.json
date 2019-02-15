@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "module": "commonjs",
-    "target": "es6",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
     "moduleResolution": "node",
-    "experimentalDecorators": true
+    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noImplicitAny": true,
+    "lib": ["dom", "es2015", "es2016", "es2017"],
+    "module": "commonjs",
+    "declaration": true,
+    "esModuleInterop": true
   },
-  "include": [
-    "./src/**/*"
-  ]
+  "exclude": ["node_modules"]
 }

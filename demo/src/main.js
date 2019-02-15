@@ -1,13 +1,19 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const events = require('./events/index.js')
+const { registNativeEvent } = require('../../lib')
 
 app.on('ready', () => {
   const win = new BrowserWindow()
 
-  // regist event
-  const { registEvents } = require('../../lib/index.js')
-  registEvents(events, [app, win])
+  for (const k in events) {
+    const eventName = k
+    const fn = events[k]
+
+    registNativeEvent(eventName, async params => {
+      return await fn(params, app, win)
+    })
+  }
 
   win.loadURL(`file://${__dirname}/index.html`)
 

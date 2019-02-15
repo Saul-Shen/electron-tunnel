@@ -8,43 +8,25 @@ After regist event in main process, you can call registed event in render proces
 
 - `npm i electron-tunnel`
 
-- create events `events/index.js`
-
-```javascript
-//params: passed by callEvent; [app, win]: passed by registEvent;
-function setFullScreen(params, app, win) {
-  return win.setFullScreen(true)
-}
-
-//should return Promise when doing async things
-function asyncEvent(params, app, win) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      console.log(params.word)
-      resolve()
-    }, 3000)
-  })
-}
-
-module.exports = {
-  SET_FULL_SCREEN: setFullScreen,
-  ASYNC_EVENT: asyncEvent
-}
-```
-
-- regist events in main process
+- regist event in main process
 
 ```javascript
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
-const events = require('./events/index.js')
+const { registNativeEvent } = require('electron-tunnel')
 
 app.on('ready', () => {
   const win = new BrowserWindow()
 
-  // regist event
-  const { registEvents } = require('../../lib/index.js')
-  registEvents(events, [app, win])
+  registNativeEvent('ASYNC_EVENT', async params => {
+    const res = await new Promise(resolve => {
+      setTimeout(() => {
+        resolve(`received ${params.word}`)
+      }, 3000)
+    })
+
+    return res
+  })
 
   win.loadURL(`file://${__dirname}/index.html`)
 
@@ -60,33 +42,28 @@ app.on('ready', () => {
 - call event in renderer process
 
 ```javascript
-const { callEvent } = require('electron-tunnel')
-var $setFullScreenBtn = document.querySelector('.set-full-screen')
+const { callNativeEvent } = require('electron-tunnel')
 var $print = document.querySelector('.print')
 
-$setFullScreenBtn.addEventListener('click', function() {
-  callEvent('SET_FULL_SCREEN')
-})
-
 $print.addEventListener('click', function() {
-  callEvent('ASYNC_EVENT', { word: 'hello world' }).then(() => {
-    console.log('done')
+  callNativeEvent('ASYNC_EVENT', { word: 'hello world' }).then(res => {
+    console.log(res)
   })
 })
 ```
 
 ### API
 
-#### `registEvents(events: Object, cusParams: Array)`
+#### `registNativeEvent(eventName: string, fn: (params: any) => Promise<any>)`
 
-- `event`s: events object, key is the name called by callEvent, value is the function
+- `eventName`: string
 
-- `cusParams`: will be spreaded and pass to event function
+- `fn`: native event
 
-#### `callEvent(eventName: String, params: Object)`
+- `params` passed by callNativeEvent
 
-- `eventName`: the key of the events object
+#### `callNativeEvent(eventName: String, params: any)`
 
-- `params`: will be passed to event function as the first parameter
+- `eventName`: string
 
-- return Promise
+- `params`: will be passed to event function

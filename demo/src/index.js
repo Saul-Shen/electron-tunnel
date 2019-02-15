@@ -1,18 +1,18 @@
-var { callEvent } = require('../../lib/index.js')
+var { callNativeEvent } = require('../../lib')
 var $setFullScreenBtn = document.querySelector('.set-full-screen')
 var $quitFullScreenBtn = document.querySelector('.quit-full-screen')
 var $print = document.querySelector('.print')
 
 $setFullScreenBtn.addEventListener('click', function() {
-  callEvent('SET_FULL_SCREEN')
+  callNativeEvent('SET_FULL_SCREEN')
 })
 
 $quitFullScreenBtn.addEventListener('click', function() {
-  callEvent('QUIT_FULL_SCREEN')
+  callNativeEvent('QUIT_FULL_SCREEN')
 })
 
 $print.addEventListener('click', function() {
-  callEvent('ASYNC_EVENT', { word: 'hello world' }).then(() => {
-    console.log('done')
+  callNativeEvent('ASYNC_EVENT', { word: 'hello world' }).then(msg => {
+    console.log(msg)
   })
 })
