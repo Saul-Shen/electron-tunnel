@@ -1,10 +1,10 @@
 {
   "name": "electron-tunnel",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "main": "./lib/index.js",
   "description": "",
   "scripts": {
-    "build": "rm -rf es lib dist && node ./build.js",
+    "build": "rm -rf es lib dist && tsc -p .",
     "release": "npm run build && standard-version && npm publish --registry=https://registry.npmjs.org/"
   },
   "repository": {
@@ -15,6 +15,7 @@
     "package.json",
     "README.md",
     "LICENSE",
+    "lib",
     "dist"
   ],
   "keywords": [
@@ -31,11 +32,10 @@
   },
   "homepage": "https://github.com/Hokkaidosunny/electron-tunnel#readme",
   "dependencies": {
-    "electron": "^3.0.11",
+    "electron": "9.0.0",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "build-my-package": "^0.0.17",
     "standard-version": "^4.4.0",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.18.0",
